@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Debashis Kar | Portfolio</title>
+  <meta name="description" content="Portfolio of Debashis Kar — Software Engineer skilled in Java, JavaScript, Chrome Extensions, and Frontend Development.">
+  <meta name="author" content="Debashis Kar">
+  
+  <!-- IMPORTANT: Correct CSS link -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <div class="nav-left">DEBASHIS KAR</div>
+    <div class="nav-right">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <header class="hero-modern">
+    <div class="hero-left">
+      <h2 class="hero-hi">Hey there!</h2>
+      <h1 class="hero-name">I'm <span>Debashis Kar.</span></h1>
+      <h3 class="hero-role">Software Engineer</h3>
+      <p class="hero-desc">Bringing digital ideas to life, one line at a time.</p>
+      
+      <div class="hero-buttons">
+        <a href="https://wa.me/918967183304?text=Hi%20Debashis,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" 
+           class="hero-btn" 
+           target="_blank">💬 WhatsApp Me</a>
+
+        <a href="resume.pdf" class="resume-btn" download>Download Resume</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="photo-frame">
+        <img src="profile-hero.png" alt="Debashis" />
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about" class="card">
+    <h2>About Me</h2>
+
+    <div class="about-container">
+      <img src="profile-about.png" class="about-img" alt="Debashis">
+
+      <div class="about-text">
+        <p>
+          I am a 2025 pass-out B.Tech (Information Technology) student from  
+          Asansol Engineering College.  
+          I love building practical projects using Java, JavaScript, HTML, CSS,  
+          and Chrome APIs.  
+          My goal is to create clean, simple and fast solutions for real-world problems.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="card">
+    <h2>Skills</h2>
+
+    <ul class="skills-list">
+      <li>Java</li>
+      <li>JavaScript</li>
+      <li>HTML & CSS</li>
+      <li>MySQL / MS SQL</li>
+      <li>Git & GitHub</li>
+      <li>VS Code / IntelliJ</li>
+    </ul>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="card">
+    <h2>Projects</h2>
+
+    <div class="project">
+      <h3>Online English Course Platform</h3>
+      <p>Responsive platform built with HTML, CSS & JavaScript. Razorpay integration for payments and user enrollment.</p>
+      <p class="meta">Tech: HTML, CSS, JavaScript — <a href="#">GitHub</a></p>
+    </div>
+
+    <div class="project">
+      <h3>TaskMate Chrome Extension</h3>
+      <p>Task manager extension using Chrome APIs + Google OAuth 2.0. Syncs with Google Calendar and supports CRUD tasks.</p>
+      <p class="meta">Tech: JavaScript, Chrome APIs — <a href="#">GitHub</a></p>
+    </div>
+
+    <div class="project">
+      <h3>Sorting Visualizer</h3>
+      <p>Visualizer for Sorting Algorithms with adjustable speed and animations.</p>
+      <p class="meta">Tech: HTML, CSS, JavaScript — <a href="#">GitHub</a></p>
+
+      <!-- MINI SORTING SIMULATOR -->
+      <div class="project-sim">
+        <div class="sim-header">
+          <span class="sim-title">Mini Sorting Demo</span>
+          <span class="sim-tag">Interactive • Live</span>
+        </div>
+
+        <div class="sim-bars" id="sim-bars"></div>
+
+        <div class="sim-controls">
+          <button id="sim-shuffle">Shuffle</button>
+          <button id="sim-sort">Sort</button>
+        </div>
+
+        <p class="sim-hint">Try a tiny version of my Sorting Visualizer. Shuffle and then sort the bars.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="card">
+    <h2>Contact</h2>
+    <p>You can reach me on:</p>
+
+    <div class="contact-links">
+      <a href="https://github.com/Debashis012" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/DebashisKar" target="_blank">LinkedIn</a>
+    </div>
+
+    <p class="note">Phone and email are intentionally hidden.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2025 Debashis Kar. All rights reserved.
+  </footer>
+
+  <!-- AI CHAT BUBBLE -->
+  <div class="assistant-widget">
+    <button class="assistant-toggle">🤖 Ask my Portfolio</button>
+
+    <div class="assistant-window">
+      <div class="assistant-header">
+        <span>Debashis AI Helper</span>
+        <button class="assistant-close">✕</button>
+      </div>
+
+      <div class="assistant-messages">
+        <div class="msg bot">
+          Hey! I'm Debashis's mini assistant. Ask me about his skills, projects, or how to contact him. 😊
+        </div>
+      </div>
+
+      <div class="assistant-quick">
+        <button data-question="What are your main skills?">Skills?</button>
+        <button data-question="Tell me about your projects.">Projects?</button>
+        <button data-question="How can I contact you?">Contact?</button>
+      </div>
+
+      <div class="assistant-input">
+        <input type="text" placeholder="Type something..." autocomplete="off" />
+        <button class="assistant-send">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+      /* MINI SORTING SIMULATOR */
+      const barsContainer = document.getElementById("sim-bars");
+      const shuffleBtn = document.getElementById("sim-shuffle");
+      const sortBtn = document.getElementById("sim-sort");
+
+      let values = [];
+      let isSorting = false;
+
+      function generateBars() {
+        values = [];
+        barsContainer.innerHTML = "";
+        for (let i = 0; i < 8; i++) {
+          const val = Math.floor(Math.random() * 80) + 20;
+          values.push(val);
+
+          const bar = document.createElement("div");
+          bar.className = "sim-bar";
+          bar.style.height = val + "%";
+          barsContainer.appendChild(bar);
+        }
+      }
+
+      function updateBars(a, b) {
+        const bars = barsContainer.children;
+        for (let i = 0; i < bars.length; i++) {
+          bars[i].classList.remove("active");
+        }
+        if (a !== -1) bars[a].classList.add("active");
+        if (b !== -1) bars[b].classList.add("active");
+      }
+
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
+      async function bubbleSort() {
+        if (isSorting) return;
+        isSorting = true;
+
+        for (let i = 0; i < values.length - 1; i++) {
+          for (let j = 0; j < values.length - i - 1; j++) {
+            updateBars(j, j + 1);
+            await sleep(200);
+
+            if (values[j] > values[j + 1]) {
+              [values[j], values[j + 1]] = [values[j + 1], values[j]];
+              barsContainer.children[j].style.height = values[j] + "%";
+              barsContainer.children[j + 1].style.height = values[j + 1] + "%";
+            }
+          }
+        }
+
+        updateBars(-1, -1);
+        isSorting = false;
+      }
+
+      shuffleBtn.onclick = generateBars;
+      sortBtn.onclick = bubbleSort;
+      generateBars();
+
+
+      /* AI CHAT ASSISTANT - UPGRADED VERSION */
+      const widget = document.querySelector(".assistant-widget");
+      const toggle = widget.querySelector(".assistant-toggle");
+      const windowEl = widget.querySelector(".assistant-window");
+      const close = widget.querySelector(".assistant-close");
+      const messages = widget.querySelector(".assistant-messages");
+      const input = widget.querySelector(".assistant-input input");
+      const send = widget.querySelector(".assistant-send");
+      const quicks = widget.querySelectorAll(".assistant-quick button");
+
+      // Make sure input is focusable and editable
+      input.setAttribute('type', 'text');
+      input.removeAttribute('disabled');
+      input.removeAttribute('readonly');
+
+      // Enhanced Q&A Database with multiple patterns
+      const qaDatabase = {
+        // Skills related
+        skills: {
+          patterns: ["skill", "technology", "tech stack", "know", "language", "programming", "tools", "expertise"],
+          responses: [
+            "Debashis is proficient in Java, JavaScript, HTML, CSS, MySQL/MS SQL, Git, GitHub, VS Code, and IntelliJ IDEA. He specializes in building web applications and Chrome extensions! 🚀",
+            "His technical skills include full-stack development with Java & JavaScript, database management with MySQL, and modern development tools like Git and VS Code. Want to know more about a specific skill?"
+          ]
+        },
+
+        // Projects related
+        projects: {
+          patterns: ["project", "work", "built", "created", "portfolio", "development", "website"],
+          responses: [
+            "Debashis has worked on some amazing projects! 🎯\n\n1. Online English Course Platform - A responsive e-learning platform with Razorpay payment integration\n2. TaskMate Chrome Extension - Task manager with Google OAuth 2.0 and Calendar sync\n3. Sorting Visualizer - Interactive algorithm visualization tool\n\nWhich project interests you?",
+            "His portfolio showcases three key projects: an e-learning platform with payment integration, a Chrome extension for task management, and an interactive sorting algorithm visualizer. Each demonstrates his full-stack capabilities! 💡"
+          ]
+        },
+
+        // Contact related
+        contact: {
+          patterns: ["contact", "reach", "connect", "email", "phone", "linkedin", "github", "social"],
+          responses: [
+            "You can connect with Debashis on:\n\n🔗 GitHub: github.com/Debashis012\n💼 LinkedIn: linkedin.com/in/DebashisKar\n💬 WhatsApp: Click the 'WhatsApp Me' button above!\n\nHe's always open to interesting opportunities and collaborations! 😊",
+            "Feel free to reach out! You can find him on GitHub and LinkedIn (links in the Contact section), or send a quick message via WhatsApp using the button on this page. He'd love to hear from you! 🤝"
+          ]
+        },
+
+        // Education related
+        education: {
+          patterns: ["education", "college", "university", "degree", "graduate", "student", "study"],
+          responses: [
+            "Debashis is a 2025 graduate with a B.Tech in Information Technology from Asansol Engineering College. He's passionate about building practical, real-world solutions! 🎓",
+            "He completed his B.Tech in IT from Asansol Engineering College in 2025, where he developed a strong foundation in software engineering and problem-solving. 📚"
+          ]
+        },
+
+        // Experience & work
+        experience: {
+          patterns: ["experience", "job", "work experience", "worked", "internship", "career"],
+          responses: [
+            "Debashis has hands-on experience building full-stack web applications, Chrome extensions with OAuth integration, and interactive visualizers. Check out the Projects section for detailed examples of his work! 💼",
+            "His practical experience includes developing payment-integrated platforms, browser extensions with Google APIs, and educational tools. Each project demonstrates real-world problem-solving skills! 🛠️"
+          ]
+        },
+
+        // Hiring/Availability
+        hire: {
+          patterns: ["hire", "available", "looking for", "opportunity", "job", "position", "recruit", "freelance"],
+          responses: [
+            "Debashis is open to exciting opportunities! 🎯 For hiring inquiries, you can reach out via WhatsApp (button above) or connect on LinkedIn. He's particularly interested in full-stack development and innovative projects!",
+            "Yes, he's available for interesting roles and collaborations! Feel free to contact him via WhatsApp or LinkedIn to discuss opportunities. He's especially passionate about building impactful solutions! 🚀"
+          ]
+        },
+
+        // Specific tech questions
+        java: {
+          patterns: ["java", "backend"],
+          responses: [
+            "Yes! Debashis is skilled in Java and uses it for backend development. He's comfortable with object-oriented programming and building robust server-side applications. ☕",
+          ]
+        },
+
+        javascript: {
+          patterns: ["javascript", "js", "frontend", "react", "node"],
+          responses: [
+            "Absolutely! JavaScript is one of Debashis's core skills. He uses it for both frontend development and Chrome extension development, including working with APIs and async programming. 💻",
+          ]
+        },
+
+        chrome: {
+          patterns: ["chrome extension", "browser extension", "plugin"],
+          responses: [
+            "Debashis has built TaskMate, a Chrome extension with Google OAuth 2.0 integration and Calendar sync! He's experienced with Chrome APIs and browser extension architecture. 🔌",
+          ]
+        },
+
+        database: {
+          patterns: ["database", "sql", "mysql", "data"],
+          responses: [
+            "He works with MySQL and MS SQL for database management, including designing schemas, writing queries, and optimizing database performance for web applications. 🗄️",
+          ]
+        },
+
+        // General conversation
+        greeting: {
+          patterns: ["hi", "hello", "hey", "hola", "namaste"],
+          responses: [
+            "Hello! 👋 I'm here to help you learn more about Debashis. Feel free to ask about his skills, projects, or how to get in touch!",
+            "Hey there! 😊 What would you like to know about Debashis? I can tell you about his skills, projects, or contact information!",
+          ]
+        },
+
+        thanks: {
+          patterns: ["thank", "thanks", "thank you", "appreciate"],
+          responses: [
+            "You're welcome! 😊 If you have any other questions about Debashis, feel free to ask!",
+            "Happy to help! Feel free to reach out if you need anything else! 🙌",
+          ]
+        },
+
+        advantage: {
+          patterns: ["advantage", "benefit", "why", "strength", "strong"],
+          responses: [
+            "Debashis brings several advantages:\n\n✅ Full-stack development skills\n✅ Hands-on experience with real projects\n✅ Payment integration expertise\n✅ Chrome extension development\n✅ Clean, maintainable code\n✅ Problem-solving mindset\n\nHe focuses on building practical, user-friendly solutions! 💪",
+          ]
+        }
+      };
+
+      // Smart response function
+      function getSmartResponse(userInput) {
+        const input = userInput.toLowerCase().trim();
+        
+        // Check each category
+        for (const [category, data] of Object.entries(qaDatabase)) {
+          for (const pattern of data.patterns) {
+            if (input.includes(pattern)) {
+              // Return random response from available options
+              const responses = data.responses;
+              return responses[Math.floor(Math.random() * responses.length)];
+            }
+          }
+        }
+
+        // Default responses for unknown queries
+        const defaultResponses = [
+          "That's an interesting question! 🤔 While I don't have specific information about that, you can explore the portfolio sections or reach out to Debashis directly. Try asking about his skills, projects, or contact info!",
+          "I'm not sure about that specifically, but I'd be happy to tell you about Debashis's skills, projects, or how to contact him. What would you like to know? 😊",
+          "Hmm, I don't have details on that, but feel free to ask me about:\n• Technical skills\n• Projects & work\n• Contact information\n• Education & experience\n\nWhat interests you? 💡",
+        ];
+
+        return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+      }
+
+      function reply(text) {
+        const msg = document.createElement("div");
+        msg.className = "msg bot";
+        msg.textContent = text;
+        messages.appendChild(msg);
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+      function sendMessage() {
+        const txt = input.value.trim();
+        if (!txt) return;
+
+        const userMsg = document.createElement("div");
+        userMsg.className = "msg user";
+        userMsg.textContent = txt;
+        messages.appendChild(userMsg);
+
+        input.value = "";
+        messages.scrollTop = messages.scrollHeight;
+
+        // Get smart response
+        const response = getSmartResponse(txt);
+
+        setTimeout(() => reply(response), 400);
+      }
+
+      toggle.onclick = () => {
+        windowEl.classList.toggle("open");
+        if (windowEl.classList.contains("open")) {
+          setTimeout(() => input.focus(), 100);
+        }
+      };
+
+      close.onclick = () => windowEl.classList.remove("open");
+      
+      send.onclick = sendMessage;
+      
+      input.onkeydown = e => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          sendMessage();
+        }
+      };
+
+      input.onclick = () => input.focus();
+
+      quicks.forEach(btn => btn.onclick = () => {
+        input.value = btn.dataset.question;
+        sendMessage();
+      });
+
+    });
+  </script>
+
+</body>
+</html>
