@@ -151,12 +151,97 @@ footer span{color:var(--neon)}
 .reveal{opacity:0;transform:translateY(28px) perspective(600px) rotateX(5deg);transform-origin:top;transition:opacity .75s ease,transform .75s ease}
 .reveal.on{opacity:1;transform:translateY(0) perspective(600px) rotateX(0)}
 
+/* ── HAMBURGER BUTTON ── */
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:transparent;border:1px solid var(--border);border-radius:5px;padding:7px 8px;cursor:pointer;z-index:200;flex-shrink:0}
+.hamburger span{display:block;width:100%;height:1.5px;background:var(--accent);border-radius:2px;transition:transform .3s ease,opacity .3s ease,width .3s ease}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;width:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* ── MOBILE DRAWER ── */
+.nav-drawer{position:fixed;top:0;right:0;width:min(280px,80vw);height:100vh;background:rgba(2,12,27,.97);backdrop-filter:blur(24px);border-left:1px solid var(--border);z-index:150;transform:translateX(100%);transition:transform .35s cubic-bezier(.23,1,.32,1);display:flex;flex-direction:column;padding:5rem 2rem 2rem;gap:.4rem}
+.nav-drawer.open{transform:translateX(0)}
+.nav-drawer a{font-family:var(--mono);font-size:.85rem;color:var(--muted);text-decoration:none;letter-spacing:.12em;text-transform:uppercase;padding:.9rem 1rem;border-radius:5px;border:1px solid transparent;transition:color .2s,border-color .2s,background .2s;display:block}
+.nav-drawer a:hover{color:var(--accent);border-color:var(--border);background:rgba(0,200,255,.04)}
+.nav-overlay{display:none;position:fixed;inset:0;z-index:140;background:rgba(0,0,0,.5)}
+.nav-overlay.open{display:block}
+
+/* ══════════════════════════════════════
+   TABLET  (769px – 1024px)
+══════════════════════════════════════ */
+@media(min-width:769px) and (max-width:1024px){
+  .wrap{padding:5rem 4vw}
+  #hero{padding:5rem 4vw 0}
+  .about-grid{grid-template-columns:1fr 1fr;gap:3rem}
+  .sk-grid{grid-template-columns:repeat(2,1fr)}
+  .proj-grid{grid-template-columns:repeat(2,1fr)}
+  .cgrid{gap:1rem}
+  .ccard{min-width:180px;padding:.9rem 1.2rem}
+}
+
+/* ══════════════════════════════════════
+   MOBILE  (≤ 768px)
+══════════════════════════════════════ */
 @media(max-width:768px){
+  /* Hide desktop nav, show hamburger */
   .nav-links{display:none}
-  .about-grid{grid-template-columns:1fr;gap:2.5rem}
-  .sk-grid{grid-template-columns:1fr}
+  .hamburger{display:flex}
+
   body{cursor:auto}
   #cur,#ring{display:none}
+
+  /* Nav */
+  nav{padding:.9rem 5vw}
+
+  /* Section spacing */
+  .wrap{padding:4rem 5vw}
+  #hero{padding:5rem 5vw 0;min-height:100svh}
+
+  /* Hero text */
+  .h-name{font-size:clamp(2.8rem,13vw,4.5rem)}
+  .h-role{font-size:clamp(1.1rem,5vw,1.6rem)}
+  .h-tag{font-size:.82rem;max-width:100%}
+  .h-cta{flex-direction:column;gap:.75rem}
+  .btn{width:100%;justify-content:center;padding:.9rem 1.2rem}
+
+  /* About */
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+
+  /* Skills */
+  .sk-grid{grid-template-columns:1fr}
+
+  /* Experience */
+  .ecard{padding:1.4rem 1.2rem}
+  .etop{flex-direction:column;align-items:flex-start;gap:.6rem}
+  .ebadge{font-size:.63rem}
+  .elist li{font-size:.73rem}
+
+  /* Projects */
+  .proj-grid{grid-template-columns:1fr}
+  .pcard{padding:1.4rem}
+
+  /* Contact */
+  .cgrid{flex-direction:column;align-items:center;gap:.85rem}
+  .ccard{width:100%;max-width:380px;min-width:unset;padding:1rem 1.4rem}
+
+  /* Scroll cue hide on mobile — not useful */
+  .scroll-cue{display:none}
+
+  /* Section headings */
+  h2{font-size:clamp(1.7rem,7vw,2.4rem)}
+
+  /* Footer */
+  footer{font-size:.62rem;line-height:1.8}
+}
+
+/* ══════════════════════════════════════
+   SMALL PHONES  (≤ 400px)
+══════════════════════════════════════ */
+@media(max-width:400px){
+  .h-name{font-size:clamp(2.4rem,12vw,3rem)}
+  .wrap{padding:3.5rem 4vw}
+  .ecard{padding:1.2rem 1rem}
+  .elist li{font-size:.7rem}
 }
 </style>
 </head>
@@ -179,6 +264,19 @@ footer span{color:var(--neon)}
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-overlay" id="navOverlay"></div>
+<nav class="nav-drawer" id="navDrawer">
+  <a href="#about"      class="drawer-link">About</a>
+  <a href="#skills"     class="drawer-link">Skills</a>
+  <a href="#experience" class="drawer-link">Experience</a>
+  <a href="#projects"   class="drawer-link">Projects</a>
+  <a href="#contact"    class="drawer-link">Contact</a>
 </nav>
 
 <!-- ══════════ HERO ══════════ -->
@@ -398,7 +496,8 @@ function glowTex(hex) {
 }
 
 // ── Stars / Particles ──
-const N = 3200;
+const isMobile = window.matchMedia('(max-width:768px)').matches;
+const N = isMobile ? 800 : 3200;
 const pPos = new Float32Array(N * 3);
 for (let i = 0; i < N; i++) {
   pPos[i*3]   = (Math.random() - 0.5) * 50;
@@ -414,7 +513,7 @@ const stars = new THREE.Points(pGeo, new THREE.PointsMaterial({
 scene.add(stars);
 
 // ── Accent stars (neon colour) ──
-const N2 = 500;
+const N2 = isMobile ? 120 : 500;
 const pPos2 = new Float32Array(N2 * 3);
 for (let i = 0; i < N2; i++) {
   pPos2[i*3]   = (Math.random() - 0.5) * 45;
@@ -438,7 +537,8 @@ function wireMesh(geo, color, opacity) {
 
 // ── Hero centrepiece: TorusKnot ──
 const tkMain = wireMesh(new THREE.TorusKnotGeometry(1.7, 0.46, 130, 18, 2, 3), 0x00c8ff, 0.18);
-tkMain.position.set(3.8, 0.3, -2);
+tkMain.position.set(isMobile ? 0.6 : 3.8, isMobile ? -0.8 : 0.3, isMobile ? -3.5 : -2);
+if (isMobile) { tkMain.scale.setScalar(0.65); }
 scene.add(tkMain);
 
 // Halo around it
@@ -461,7 +561,10 @@ const shapeDefs = [
 
 shapeDefs.forEach(d => {
   const m = wireMesh(d.geo, d.c, d.op);
-  m.position.set(...d.p);
+  // On mobile, clamp x positions so floaters stay within the narrow viewport
+  const px = isMobile ? Math.max(-2.5, Math.min(2.5, d.p[0])) : d.p[0];
+  const py = isMobile ? d.p[1] * 0.7 : d.p[1];
+  m.position.set(px, py, d.p[2]);
   m.userData = { spd: d.s, fo: Math.random() * Math.PI * 2 };
   scene.add(m);
   floaters.push(m);
@@ -592,6 +695,27 @@ window.addEventListener('scroll', () => {
   });
   navAs.forEach(a => { a.style.color = a.getAttribute('href') === '#' + id ? 'var(--accent)' : ''; });
 });
+
+// ══════════════════════════════════════════════════
+//  HAMBURGER / MOBILE DRAWER
+// ══════════════════════════════════════════════════
+const hamburger  = document.getElementById('hamburger');
+const navDrawer  = document.getElementById('navDrawer');
+const navOverlay = document.getElementById('navOverlay');
+
+function openDrawer()  { hamburger.classList.add('open'); navDrawer.classList.add('open'); navOverlay.classList.add('open'); document.body.style.overflow='hidden'; }
+function closeDrawer() { hamburger.classList.remove('open'); navDrawer.classList.remove('open'); navOverlay.classList.remove('open'); document.body.style.overflow=''; }
+
+hamburger.addEventListener('click', () => hamburger.classList.contains('open') ? closeDrawer() : openDrawer());
+navOverlay.addEventListener('click', closeDrawer);
+document.querySelectorAll('.drawer-link').forEach(a => a.addEventListener('click', closeDrawer));
+
+// ══════════════════════════════════════════════════
+//  MOBILE: disable mouse parallax on touch devices
+// ══════════════════════════════════════════════════
+if (window.matchMedia('(pointer:coarse)').matches) {
+  document.addEventListener('touchmove', () => { mx = 0; my = 0; }, { passive: true });
+}
 </script>
 </body>
 </html>
