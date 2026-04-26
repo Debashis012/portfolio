@@ -1,441 +1,597 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Debashis Kar | Portfolio</title>
-  <meta name="description" content="Portfolio of Debashis Kar — Software Engineer skilled in Java, JavaScript, Chrome Extensions, and Frontend Development.">
-  <meta name="author" content="Debashis Kar">
-  
-  <!-- IMPORTANT: Correct CSS link -->
-  <link rel="stylesheet" href="style.css" />
-</head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Debashis Kar — .NET Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+:root {
+  --bg:      #020c1b;
+  --bg2:     #041525;
+  --surface: rgba(4,25,50,0.65);
+  --border:  rgba(0,200,255,0.12);
+  --accent:  #00c8ff;
+  --blue:    #0055ee;
+  --neon:    #00ffb3;
+  --muted:   #3d6080;
+  --text:    #8ab4cc;
+  --bright:  #ddeeff;
+  --display: 'Oxanium', sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--display);overflow-x:hidden;cursor:none}
 
+/* ── CURSOR ── */
+#cur{position:fixed;width:11px;height:11px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 14px var(--accent),0 0 28px rgba(0,200,255,.4);transition:width .2s,height .2s,background .2s}
+#ring{position:fixed;width:38px;height:38px;border:1px solid rgba(0,200,255,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+#cur.hov{width:18px;height:18px;background:var(--neon);box-shadow:0 0 14px var(--neon)}
+#ring.hov{width:58px;height:58px;border-color:rgba(0,255,179,.6)}
+
+/* ── THREE.JS CANVAS ── */
+#bg{position:fixed;top:0;left:0;z-index:-1;pointer-events:none}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;width:100%;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5vw;background:rgba(2,12,27,.82);backdrop-filter:blur(22px);border-bottom:1px solid var(--border)}
+.logo{font-family:var(--mono);font-size:.88rem;color:var(--accent);letter-spacing:.15em}.logo em{color:var(--neon);font-style:normal}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:.72rem;color:var(--muted);text-decoration:none;letter-spacing:.12em;text-transform:uppercase;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--accent);transform:scaleX(0);transition:transform .2s}
+.nav-links a:hover{color:var(--accent)}.nav-links a:hover::after{transform:scaleX(1)}
+
+/* ── SECTION UTILS ── */
+.wrap{max-width:1140px;margin:0 auto;padding:7rem 5vw}
+.lbl{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--neon);margin-bottom:.8rem;display:flex;align-items:center;gap:.55rem}
+.lbl::before{content:'›_';opacity:.55;color:var(--accent)}
+h2{font-family:var(--display);font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:var(--bright);line-height:1.1;letter-spacing:-.01em;margin-bottom:.8rem}
+.grad{background:linear-gradient(130deg,var(--accent),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hdiv{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);max-width:1140px;margin:0 auto}
+
+/* ── HERO ── */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;max-width:1140px;margin:0 auto;padding:6rem 5vw 0}
+.h-status{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neon);background:rgba(0,255,179,.05);border:1px solid rgba(0,255,179,.2);padding:.4rem 1rem;border-radius:100px;margin-bottom:1.8rem;width:fit-content;opacity:0;animation:fUp .8s .2s ease forwards}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--neon);box-shadow:0 0 8px var(--neon);animation:blink 1.5s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.h-name{font-size:clamp(3.5rem,9vw,6.8rem);font-weight:800;color:var(--bright);line-height:.95;letter-spacing:-.025em;margin-bottom:.4rem;opacity:0;animation:fUp .9s .35s ease forwards}
+.h-role{font-size:clamp(1.3rem,3.5vw,2.4rem);font-weight:300;background:linear-gradient(90deg,var(--accent),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.05em;margin-bottom:1.5rem;opacity:0;animation:fUp .9s .5s ease forwards}
+.h-tag{font-family:var(--mono);font-size:.88rem;color:var(--muted);line-height:1.9;max-width:460px;margin-bottom:2.5rem;opacity:0;animation:fUp .9s .65s ease forwards}
+.h-tag span{color:var(--text)}
+.h-cta{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fUp .9s .8s ease forwards}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.77rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:.8rem 1.8rem;border-radius:4px;transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-p{background:linear-gradient(135deg,var(--blue),var(--accent));color:#fff;box-shadow:0 0 22px rgba(0,200,255,.3),0 0 55px rgba(0,200,255,.1)}
+.btn-p:hover{box-shadow:0 0 38px rgba(0,200,255,.5),0 0 80px rgba(0,200,255,.15)}
+.btn-o{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-o:hover{border-color:var(--accent);color:var(--accent)}
+.scroll-cue{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fUp .9s 1.3s ease forwards}
+.scroll-cue span{font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase}
+.sc-line{width:1px;height:48px;background:linear-gradient(180deg,var(--accent),transparent);animation:scDrop 1.6s ease-in-out infinite}
+@keyframes scDrop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes fUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:5rem;margin-top:3rem;align-items:start}
+.about-text p{font-size:.94rem;color:var(--muted);margin-bottom:1rem;line-height:1.85}
+.about-text p strong{color:var(--text);font-weight:500}
+.a-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+.atag{font-family:var(--mono);font-size:.68rem;color:var(--accent);background:rgba(0,200,255,.06);border:1px solid rgba(0,200,255,.15);padding:.3rem .8rem;border-radius:3px}
+
+/* 3D hover info cards */
+.info-stack{display:flex;flex-direction:column;gap:1.1rem}
+.icard{background:rgba(4,25,50,.65);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.4rem;display:flex;align-items:flex-start;gap:1rem;transform-style:preserve-3d;transition:transform .4s ease,border-color .3s,box-shadow .3s}
+.icard:hover{transform:perspective(600px) rotateX(3deg) rotateY(-5deg) translateZ(8px);border-color:var(--accent);box-shadow:-8px 8px 24px rgba(0,0,0,.4),0 0 20px rgba(0,200,255,.1)}
+.iico{width:36px;height:36px;flex-shrink:0;background:rgba(0,200,255,.08);border:1px solid rgba(0,200,255,.15);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+.ititle{font-size:.9rem;font-weight:700;color:var(--bright);margin-bottom:.2rem}
+.idesc{font-family:var(--mono);font-size:.73rem;color:var(--muted)}
+
+/* ── SKILLS ── */
+.sk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.sk-head{font-family:var(--mono);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--neon);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.sk-head::before{content:'';width:18px;height:1px;background:currentColor}
+.flip-stack{display:flex;flex-direction:column;gap:.65rem}
+.fcard{height:50px;perspective:800px}
+.finner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.23,1,.32,1)}
+.fcard:hover .finner{transform:rotateY(180deg)}
+.ffront,.fback{position:absolute;inset:0;backface-visibility:hidden;border-radius:5px;display:flex;align-items:center;padding:0 1rem}
+.ffront{background:rgba(4,25,50,.75);border:1px solid var(--border);font-family:var(--mono);font-size:.78rem;color:var(--text);gap:.75rem}
+.fdot{width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.fback{background:rgba(0,85,238,.12);border:1px solid rgba(0,200,255,.22);transform:rotateY(180deg);gap:.65rem}
+.flbl{font-family:var(--mono);font-size:.63rem;color:var(--accent);white-space:nowrap}
+.fbar-w{flex:1;height:3px;background:rgba(255,255,255,.07);border-radius:2px}
+.fbar{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--blue),var(--accent))}
+
+/* ── EXPERIENCE ── */
+.exp-stack{margin-top:3rem;display:flex;flex-direction:column;gap:1.8rem}
+.ecard{background:rgba(4,25,50,.5);border:1px solid var(--border);border-radius:12px;padding:2rem;position:relative;overflow:hidden;transition:transform .4s ease,border-color .3s,box-shadow .3s}
+.ecard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--accent),var(--neon))}
+.ecard:hover{transform:perspective(1000px) rotateX(1.5deg) rotateY(1deg) translateZ(8px);border-color:rgba(0,200,255,.3);box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 30px rgba(0,200,255,.07)}
+.etop{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.2rem}
+.erole{font-size:1.1rem;font-weight:700;color:var(--bright)}
+.eco{font-family:var(--mono);font-size:.76rem;color:var(--accent);margin-top:.25rem}
+.ebadge{font-family:var(--mono);font-size:.67rem;color:var(--neon);background:rgba(0,255,179,.07);border:1px solid rgba(0,255,179,.18);padding:.25rem .8rem;border-radius:100px;white-space:nowrap;height:fit-content}
+.elist{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.elist li{font-family:var(--mono);font-size:.78rem;color:var(--muted);display:flex;gap:.7rem}
+.elist li::before{content:'↗';color:var(--blue);flex-shrink:0}
+
+/* ── PROJECTS ── */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.5rem;margin-top:3rem}
+.pcard{background:rgba(4,25,50,.55);border:1px solid var(--border);border-radius:12px;padding:1.8rem;display:flex;flex-direction:column;position:relative;overflow:hidden;will-change:transform;transition:border-color .3s,box-shadow .3s}
+.pcard::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),var(--neon),transparent);opacity:0;transition:opacity .3s}
+.pcard:hover::before{opacity:1}
+.pcard::after{content:'';position:absolute;top:-40px;right:-40px;width:100px;height:100px;background:radial-gradient(circle,rgba(0,200,255,.07),transparent 70%);opacity:0;transition:opacity .3s}
+.pcard:hover::after{opacity:1}
+.ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.2rem}
+.pico{width:42px;height:42px;background:rgba(0,200,255,.08);border:1px solid rgba(0,200,255,.14);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;position:relative;z-index:1}
+.plinks{display:flex;gap:.5rem;position:relative;z-index:1}
+.plink{font-family:var(--mono);font-size:.64rem;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:.22rem .65rem;border-radius:3px;transition:color .2s,border-color .2s}
+.plink:hover{color:var(--accent);border-color:var(--accent)}
+.ptitle{font-size:1rem;font-weight:700;color:var(--bright);margin-bottom:.5rem;position:relative;z-index:1}
+.pdesc{font-family:var(--mono);font-size:.77rem;color:var(--muted);line-height:1.75;flex:1;margin-bottom:1.2rem;position:relative;z-index:1}
+.ptags{display:flex;flex-wrap:wrap;gap:.38rem;position:relative;z-index:1}
+.ptag{font-family:var(--mono);font-size:.62rem;color:var(--neon);background:rgba(0,255,179,.05);border:1px solid rgba(0,255,179,.12);padding:.17rem .55rem;border-radius:3px}
+
+/* ── CONTACT ── */
+#contact .wrap{text-align:center}
+.csub{font-family:var(--mono);font-size:.84rem;color:var(--muted);max-width:420px;margin:.8rem auto 2.5rem;line-height:1.85}
+.cgrid{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap}
+.ccard{display:flex;align-items:center;gap:1rem;background:rgba(4,25,50,.6);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.8rem;text-decoration:none;min-width:220px;transition:transform .35s ease,border-color .3s,box-shadow .3s}
+.ccard:hover{transform:perspective(600px) rotateX(-4deg) rotateY(4deg) translateY(-4px);border-color:var(--accent);box-shadow:0 16px 40px rgba(0,0,0,.35),0 0 20px rgba(0,200,255,.1)}
+.cci{width:40px;height:40px;flex-shrink:0;background:rgba(0,200,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.cclbl{font-family:var(--mono);font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+.ccval{font-size:.87rem;color:var(--accent);margin-top:.1rem}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:2.5rem 5vw;border-top:1px solid var(--border);font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.1em}
+footer span{color:var(--neon)}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px) perspective(600px) rotateX(5deg);transform-origin:top;transition:opacity .75s ease,transform .75s ease}
+.reveal.on{opacity:1;transform:translateY(0) perspective(600px) rotateX(0)}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+  .sk-grid{grid-template-columns:1fr}
+  body{cursor:auto}
+  #cur,#ring{display:none}
+}
+</style>
+</head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="nav">
-    <div class="nav-left">DEBASHIS KAR</div>
-    <div class="nav-right">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+<!-- CURSOR -->
+<div id="cur"></div>
+<div id="ring"></div>
+
+<!-- THREE.JS CANVAS -->
+<canvas id="bg"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">DK<em>.dev</em></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <div>
+    <div class="h-status"><span class="sdot"></span>Open to .NET Developer roles</div>
+    <h1 class="h-name">Debashis<br>Kar</h1>
+    <div class="h-role">.NET Developer</div>
+    <p class="h-tag"><span>Building scalable web applications</span> with clean MVC<br>architecture, robust APIs & reliable SQL solutions.</p>
+    <div class="h-cta">
+      <a href="#projects" class="btn btn-p">View Projects ↗</a>
+      <a href="#contact" class="btn btn-o">Get in Touch</a>
     </div>
-  </nav>
+  </div>
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <div class="sc-line"></div>
+  </div>
+</section>
 
-  <!-- HERO SECTION -->
-  <header class="hero-modern">
-    <div class="hero-left">
-      <h2 class="hero-hi">Hey there!</h2>
-      <h1 class="hero-name">I'm <span>Debashis Kar.</span></h1>
-      <h3 class="hero-role">Software Engineer</h3>
-      <p class="hero-desc">Bringing digital ideas to life, one line at a time.</p>
-      
-      <div class="hero-buttons">
-        <a href="https://wa.me/918967183304?text=Hi%20Debashis,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" 
-           class="hero-btn" 
-           target="_blank">💬 WhatsApp Me</a>
+<div class="hdiv"></div>
 
-        <a href="resume.pdf" class="resume-btn" download>Download Resume</a>
-      </div>
-    </div>
-
-    <div class="hero-right">
-      <div class="photo-frame">
-        <img src="profile-hero.png" alt="Debashis" />
-      </div>
-    </div>
-  </header>
-
-  <!-- ABOUT -->
-  <section id="about" class="card">
-    <h2>About Me</h2>
-
-    <div class="about-container">
-      <img src="profile-about.png" class="about-img" alt="Debashis">
-
+<!-- ══════════ ABOUT ══════════ -->
+<section id="about">
+  <div class="wrap">
+    <div class="lbl">About Me</div>
+    <h2>Backend engineer with<br>an eye for <span class="grad">architecture</span></h2>
+    <div class="about-grid reveal">
       <div class="about-text">
-        <p>
-          I am a 2025 pass-out B.Tech (Information Technology) student from  
-          Asansol Engineering College.  
-          I love building practical projects using Java, JavaScript, HTML, CSS,  
-          and Chrome APIs.  
-          My goal is to create clean, simple and fast solutions for real-world problems.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills" class="card">
-    <h2>Skills</h2>
-
-    <ul class="skills-list">
-      <li>Java</li>
-      <li>JavaScript</li>
-      <li>HTML & CSS</li>
-      <li>MySQL / MS SQL</li>
-      <li>Git & GitHub</li>
-      <li>VS Code / IntelliJ</li>
-    </ul>
-  </section>
-
-  <!-- PROJECTS -->
-  <section id="projects" class="card">
-    <h2>Projects</h2>
-
-    <div class="project">
-      <h3>Online English Course Platform</h3>
-      <p>Responsive platform built with HTML, CSS & JavaScript. Razorpay integration for payments and user enrollment.</p>
-      <p class="meta">Tech: HTML, CSS, JavaScript — <a href="#">GitHub</a></p>
-    </div>
-
-    <div class="project">
-      <h3>TaskMate Chrome Extension</h3>
-      <p>Task manager extension using Chrome APIs + Google OAuth 2.0. Syncs with Google Calendar and supports CRUD tasks.</p>
-      <p class="meta">Tech: JavaScript, Chrome APIs — <a href="#">GitHub</a></p>
-    </div>
-
-    <div class="project">
-      <h3>Sorting Visualizer</h3>
-      <p>Visualizer for Sorting Algorithms with adjustable speed and animations.</p>
-      <p class="meta">Tech: HTML, CSS, JavaScript — <a href="#">GitHub</a></p>
-
-      <!-- MINI SORTING SIMULATOR -->
-      <div class="project-sim">
-        <div class="sim-header">
-          <span class="sim-title">Mini Sorting Demo</span>
-          <span class="sim-tag">Interactive • Live</span>
-        </div>
-
-        <div class="sim-bars" id="sim-bars"></div>
-
-        <div class="sim-controls">
-          <button id="sim-shuffle">Shuffle</button>
-          <button id="sim-sort">Sort</button>
-        </div>
-
-        <p class="sim-hint">Try a tiny version of my Sorting Visualizer. Shuffle and then sort the bars.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="card">
-    <h2>Contact</h2>
-    <p>You can reach me on:</p>
-
-    <div class="contact-links">
-      <a href="https://github.com/Debashis012" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/DebashisKar" target="_blank">LinkedIn</a>
-    </div>
-
-    <p class="note">Phone and email are intentionally hidden.</p>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    © 2025 Debashis Kar. All rights reserved.
-  </footer>
-
-  <!-- AI CHAT BUBBLE -->
-  <div class="assistant-widget">
-    <button class="assistant-toggle">🤖 Ask my Portfolio</button>
-
-    <div class="assistant-window">
-      <div class="assistant-header">
-        <span>Debashis AI Helper</span>
-        <button class="assistant-close">✕</button>
-      </div>
-
-      <div class="assistant-messages">
-        <div class="msg bot">
-          Hey! I'm Debashis's mini assistant. Ask me about his skills, projects, or how to contact him. 😊
+        <p>B.Tech graduate in <strong>Information Technology</strong> From Asansol Engineering College , MAKAUT University — building full-stack web apps on the .NET platform with a focus on clean, testable server-side logic.</p>
+        <p>I specialize in <strong>C# and ASP.NET MVC</strong>, designing layered architectures that separate concerns and scale cleanly. My backend work pairs tightly with <strong>MS SQL Server</strong> — I write schemas, stored procedures, and ADO.NET data layers that prioritize correctness and performance.</p>
+        <div class="a-tags">
+          <span class="atag">ASP.NET MVC</span><span class="atag">C#</span><span class="atag">ADO.NET</span>
+          <span class="atag">REST APIs</span><span class="atag">MS SQL Server</span><span class="atag">OOP</span>
+          <span class="atag">MVC Architecture</span><span class="atag">CRUD</span>
         </div>
       </div>
-
-      <div class="assistant-quick">
-        <button data-question="What are your main skills?">Skills?</button>
-        <button data-question="Tell me about your projects.">Projects?</button>
-        <button data-question="How can I contact you?">Contact?</button>
-      </div>
-
-      <div class="assistant-input">
-        <input type="text" placeholder="Type something..." autocomplete="off" />
-        <button class="assistant-send">Send</button>
+      <div class="info-stack">
+        <div class="icard"><div class="iico">⚙️</div><div><div class="ititle">Backend Development</div><div class="idesc">MVC patterns, controller logic, service layers, role-based auth in ASP.NET.</div></div></div>
+        <div class="icard"><div class="iico">🗄️</div><div><div class="ititle">Database Design</div><div class="idesc">Relational schemas, CRUD via ADO.NET, query optimization in MS SQL Server.</div></div></div>
+        <div class="icard"><div class="iico">🔌</div><div><div class="ititle">API Integration</div><div class="idesc">RESTful endpoints, third-party service integrations, webhook handling.</div></div></div>
+        <div class="icard"><div class="iico">🧱</div><div><div class="ititle">Clean Code & OOP</div><div class="idesc">SOLID principles, encapsulation, maintainable code structure.</div></div></div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- JAVASCRIPT -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
+<div class="hdiv"></div>
 
-      /* MINI SORTING SIMULATOR */
-      const barsContainer = document.getElementById("sim-bars");
-      const shuffleBtn = document.getElementById("sim-shuffle");
-      const sortBtn = document.getElementById("sim-sort");
+<!-- ══════════ SKILLS ══════════ -->
+<section id="skills">
+  <div class="wrap">
+    <div class="lbl">Tech Stack</div>
+    <h2>Skills that <span class="grad">ship products</span></h2>
+    <div class="sk-grid reveal">
+      <div>
+        <div class="sk-head">Backend</div>
+        <div class="flip-stack">
+          <div class="fcard"><div class="finner"><div class="ffront"><span class="fdot"></span>C#</div><div class="fback"><span class="flbl">C#</span><div class="fbar-w"><div class="fbar" style="width:88%"></div></div></div></div></div>
+          <div class="fcard"><div class="finner"><div class="ffront"><span class="fdot"></span>ASP.NET MVC</div><div class="fback"><span class="flbl">MVC</span><div class="fbar-w"><div class="fbar" style="width:83%"></div></div></div></div></div>
+          <div class="fcard"><div class="finner"><div class="ffront"><span class="fdot"></span>ADO.NET</div><div class="fback"><span class="flbl">ADO.NET</span><div class="fbar-w"><div class="fbar" style="width:80%"></div></div></div></div></div>
+          <div class="fcard"><div class="finner"><div class="ffront"><span class="fdot"></span>REST APIs</div><div class="fback"><span class="flbl">APIs</span><div class="fbar-w"><div class="fbar" style="width:72%"></div></div></div></div></div>
+          <div class="fcard"><div class="finner"><div class="ffront"><span class="fdot"></span>Java</div><div class="fback"><span class="flbl">Java</span><div class="fbar-w"><div class="fbar" style="width:62%"></div></div></div></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="sk-head" style="color:var(--accent)">Database</div>
+        <div class="flip-stack">
+          <div class="fcard"><div class="finner"><div class="ffront"><span class="fdot" style="background:var(--accent)"></span>MS SQL Server</div><div class="fback"><span class="flbl">SQL</span><div class="fbar-w"><div class="fbar" style="width:87%"></div></div></div></div></div>
+          <div class="fcard"><div class="finner"><div class="ffront"><span class="fdot" style="background:var(--accent)"></span>Schema Design</div><div class="fback"><span class="flbl">Schema</span><div class="fbar-w"><div class="fbar" style="width:78%"></div></div></div></div></div>
+          <div class="fcard"><div class="finner"><div class="ffront"><span class="fdot" style="background:var(--accent)"></span>SQL Queries</div><div class="fback"><span class="flbl">Queries</span><div class="fbar-w"><div class="fbar" style="width:82%"></div></div></div></div></div>
+          <div class="fcard"><div class="finner"><div class="ffront"><span class="fdot" style="background:var(--accent)"></span>CRUD Ops</div><div class="fback"><span class="flbl">CRUD</span><div class="fbar-w"><div class="fbar" style="width:91%"></div></div></div></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="sk-head" style="color:#a78bfa">Frontend & Tools</div>
+        <div class="flip-stack">
+          <div class="fcard"><div class="finner"><div class="ffront"><span class="fdot" style="background:#a78bfa"></span>HTML / CSS</div><div class="fback"><span class="flbl">HTML</span><div class="fbar-w"><div class="fbar" style="width:83%;background:linear-gradient(90deg,#6d28d9,#a78bfa)"></div></div></div></div></div>
+          <div class="fcard"><div class="finner"><div class="ffront"><span class="fdot" style="background:#a78bfa"></span>Razor Views</div><div class="fback"><span class="flbl">Razor</span><div class="fbar-w"><div class="fbar" style="width:75%;background:linear-gradient(90deg,#6d28d9,#a78bfa)"></div></div></div></div></div>
+          <div class="fcard"><div class="finner"><div class="ffront"><span class="fdot" style="background:#a78bfa"></span>Visual Studio</div><div class="fback"><span class="flbl">VS IDE</span><div class="fbar-w"><div class="fbar" style="width:88%;background:linear-gradient(90deg,#6d28d9,#a78bfa)"></div></div></div></div></div>
+          <div class="fcard"><div class="finner"><div class="ffront"><span class="fdot" style="background:#a78bfa"></span>Git / VS Code</div><div class="fback"><span class="flbl">Git</span><div class="fbar-w"><div class="fbar" style="width:70%;background:linear-gradient(90deg,#6d28d9,#a78bfa)"></div></div></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      let values = [];
-      let isSorting = false;
+<div class="hdiv"></div>
 
-      function generateBars() {
-        values = [];
-        barsContainer.innerHTML = "";
-        for (let i = 0; i < 8; i++) {
-          const val = Math.floor(Math.random() * 80) + 20;
-          values.push(val);
+<!-- ══════════ EXPERIENCE ══════════ -->
+<section id="experience">
+  <div class="wrap">
+    <div class="lbl">Career</div>
+    <h2>Where I've <span class="grad">contributed</span></h2>
+    <div class="exp-stack reveal">
+      <div class="ecard">
+        <div class="etop">
+          <div><div class="erole">.NET Developer</div><div class="eco">GTech Web Solutions</div></div>
+          <div class="ebadge">Apr 2026 – Present</div>
+        </div>
+        <ul class="elist">
+          <li>Develop and maintain ASP.NET MVC web applications for client-facing products.</li>
+          <li>Design and optimize MS SQL Server schemas with efficient ADO.NET data access layers.</li>
+          <li>Build and integrate RESTful API endpoints consumed by frontend and third-party services.</li>
+          <li>Implement role-based authentication and authorization for secure user access control.</li>
+          <li>Conduct code reviews and continuously refactor for performance and maintainability.</li>
+        </ul>
+      </div>
+      <div class="ecard">
+        <div class="etop">
+          <div><div class="erole">HTML Developer — Intern</div><div class="eco">Web Spiders</div></div>
+          <div class="ebadge">Feb 2026 – Apr 2026</div>
+        </div>
+        <ul class="elist">
+          <li>Build responsive, accessible UIs using semantic HTML5 and modern CSS.</li>
+          <li>Debug and resolve UI/UX issues across multiple concurrent web projects.</li>
+          <li>Collaborate with senior developers on application architecture and deployment workflows.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-          const bar = document.createElement("div");
-          bar.className = "sim-bar";
-          bar.style.height = val + "%";
-          barsContainer.appendChild(bar);
-        }
-      }
+<div class="hdiv"></div>
 
-      function updateBars(a, b) {
-        const bars = barsContainer.children;
-        for (let i = 0; i < bars.length; i++) {
-          bars[i].classList.remove("active");
-        }
-        if (a !== -1) bars[a].classList.add("active");
-        if (b !== -1) bars[b].classList.add("active");
-      }
+<!-- ══════════ PROJECTS ══════════ -->
+<section id="projects">
+  <div class="wrap">
+    <div class="lbl">Projects</div>
+    <h2>Things I've <span class="grad">engineered</span></h2>
+    <div class="proj-grid reveal">
 
-      function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-      }
+      <div class="pcard" data-tilt>
+        <div class="ph"><div class="pico">🎓</div><div class="plinks"><a href="#" class="plink">GitHub ↗</a></div></div>
+        <div class="ptitle">Student Management System</div>
+        <div class="pdesc">MVC web app for managing student records, course assignments, and marks — featuring advanced search/filter, relational schema design, and clean CRUD throughout.</div>
+        <div class="ptags"><span class="ptag">ASP.NET MVC</span><span class="ptag">ADO.NET</span><span class="ptag">MS SQL Server</span><span class="ptag">C#</span></div>
+      </div>
 
-      async function bubbleSort() {
-        if (isSorting) return;
-        isSorting = true;
+      <div class="pcard" data-tilt>
+        <div class="ph"><div class="pico">📝</div><div class="plinks"><a href="#" class="plink">GitHub ↗</a></div></div>
+        <div class="ptitle">Online Exam Platform</div>
+        <div class="pdesc">Secure exam platform with admin/student portals, role-based login, timer-controlled sessions, and automated result evaluation with instant score display on submission.</div>
+        <div class="ptags"><span class="ptag">ASP.NET</span><span class="ptag">Role-Based Auth</span><span class="ptag">ADO.NET</span><span class="ptag">Timer Logic</span></div>
+      </div>
 
-        for (let i = 0; i < values.length - 1; i++) {
-          for (let j = 0; j < values.length - i - 1; j++) {
-            updateBars(j, j + 1);
-            await sleep(200);
+      <div class="pcard" data-tilt>
+        <div class="ph"><div class="pico">🧩</div><div class="plinks"><a href="#" class="plink">Chrome Store ↗</a></div></div>
+        <div class="ptitle">Dev Toolkit — Chrome Extension</div>
+        <div class="pdesc">Browser extension for .NET developers — quick access to MSDN docs, C# snippet library, and a JSON formatter directly from the toolbar without switching tabs.</div>
+        <div class="ptags"><span class="ptag">JavaScript</span><span class="ptag">Chrome APIs</span><span class="ptag">HTML/CSS</span></div>
+      </div>
 
-            if (values[j] > values[j + 1]) {
-              [values[j], values[j + 1]] = [values[j + 1], values[j]];
-              barsContainer.children[j].style.height = values[j] + "%";
-              barsContainer.children[j + 1].style.height = values[j + 1] + "%";
-            }
-          }
-        }
+      <div class="pcard" data-tilt>
+        <div class="ph"><div class="pico">💳</div><div class="plinks"><a href="#" class="plink">GitHub ↗</a></div></div>
+        <div class="ptitle">Payment Integration Module</div>
+        <div class="pdesc">Reusable ASP.NET module with Razorpay gateway — order creation, webhook signature verification, SQL transaction logging, and graceful failure/retry handling.</div>
+        <div class="ptags"><span class="ptag">ASP.NET</span><span class="ptag">Razorpay API</span><span class="ptag">Webhooks</span><span class="ptag">SQL Logging</span></div>
+      </div>
 
-        updateBars(-1, -1);
-        isSorting = false;
-      }
+    </div>
+  </div>
+</section>
 
-      shuffleBtn.onclick = generateBars;
-      sortBtn.onclick = bubbleSort;
-      generateBars();
+<div class="hdiv"></div>
 
+<!-- ══════════ CONTACT ══════════ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="lbl" style="justify-content:center">Contact</div>
+    <h2>Let's <span class="grad">build together</span></h2>
+    <p class="csub">Actively looking for .NET developer roles. If you have an opportunity or want to collaborate, I'd love to hear from you.</p>
+    <div class="cgrid reveal">
+      <a href="mailto:debashis.it.aec@gmail.com" class="ccard"><div class="cci">✉️</div><div><div class="cclbl">Email</div><div class="ccval">debashis.it.aec@gmail.com</div></div></a>
+      <a href="https://www.linkedin.com/in/debashiskar/" target="_blank" class="ccard"><div class="cci">💼</div><div><div class="cclbl">LinkedIn</div><div class="ccval">linkedin.com/in/debashis-kar</div></div></a>
+      <a href="tel:+918967183304" class="ccard"><div class="cci">📞</div><div><div class="cclbl">Phone</div><div class="ccval">+91 89671 83304</div></div></a>
+    </div>
+  </div>
+</section>
 
-      /* AI CHAT ASSISTANT - UPGRADED VERSION */
-      const widget = document.querySelector(".assistant-widget");
-      const toggle = widget.querySelector(".assistant-toggle");
-      const windowEl = widget.querySelector(".assistant-window");
-      const close = widget.querySelector(".assistant-close");
-      const messages = widget.querySelector(".assistant-messages");
-      const input = widget.querySelector(".assistant-input input");
-      const send = widget.querySelector(".assistant-send");
-      const quicks = widget.querySelectorAll(".assistant-quick button");
+<footer>Built with Three.js + CSS 3D by <span>Debashis Kar</span> · Kolkata, India · 2026</footer>
 
-      // Make sure input is focusable and editable
-      input.setAttribute('type', 'text');
-      input.removeAttribute('disabled');
-      input.removeAttribute('readonly');
+<script>
+// ══════════════════════════════════════════════════
+//  THREE.JS — IMMERSIVE 3D BACKGROUND
+// ══════════════════════════════════════════════════
+const canvas = document.getElementById('bg');
+const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor(0x000000, 0);
 
-      // Enhanced Q&A Database with multiple patterns
-      const qaDatabase = {
-        // Skills related
-        skills: {
-          patterns: ["skill", "technology", "tech stack", "know", "language", "programming", "tools", "expertise"],
-          responses: [
-            "Debashis is proficient in Java, JavaScript, HTML, CSS, MySQL/MS SQL, Git, GitHub, VS Code, and IntelliJ IDEA. He specializes in building web applications and Chrome extensions! 🚀",
-            "His technical skills include full-stack development with Java & JavaScript, database management with MySQL, and modern development tools like Git and VS Code. Want to know more about a specific skill?"
-          ]
-        },
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 200);
+camera.position.set(0, 0, 7);
 
-        // Projects related
-        projects: {
-          patterns: ["project", "work", "built", "created", "portfolio", "development", "website"],
-          responses: [
-            "Debashis has worked on some amazing projects! 🎯\n\n1. Online English Course Platform - A responsive e-learning platform with Razorpay payment integration\n2. TaskMate Chrome Extension - Task manager with Google OAuth 2.0 and Calendar sync\n3. Sorting Visualizer - Interactive algorithm visualization tool\n\nWhich project interests you?",
-            "His portfolio showcases three key projects: an e-learning platform with payment integration, a Chrome extension for task management, and an interactive sorting algorithm visualizer. Each demonstrates his full-stack capabilities! 💡"
-          ]
-        },
+function onResize() {
+  renderer.setSize(innerWidth, innerHeight);
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+}
+onResize();
+window.addEventListener('resize', onResize);
 
-        // Contact related
-        contact: {
-          patterns: ["contact", "reach", "connect", "email", "phone", "linkedin", "github", "social"],
-          responses: [
-            "You can connect with Debashis on:\n\n🔗 GitHub: github.com/Debashis012\n💼 LinkedIn: linkedin.com/in/DebashisKar\n💬 WhatsApp: Click the 'WhatsApp Me' button above!\n\nHe's always open to interesting opportunities and collaborations! 😊",
-            "Feel free to reach out! You can find him on GitHub and LinkedIn (links in the Contact section), or send a quick message via WhatsApp using the button on this page. He'd love to hear from you! 🤝"
-          ]
-        },
+// Glow particle texture
+function glowTex(hex) {
+  const c = document.createElement('canvas');
+  c.width = c.height = 64;
+  const ctx = c.getContext('2d');
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  const gr = ctx.createRadialGradient(32,32,0,32,32,32);
+  gr.addColorStop(0,   `rgba(${r},${g},${b},1)`);
+  gr.addColorStop(0.35,`rgba(${r},${g},${b},0.7)`);
+  gr.addColorStop(1,   `rgba(${r},${g},${b},0)`);
+  ctx.fillStyle = gr;
+  ctx.fillRect(0,0,64,64);
+  return new THREE.CanvasTexture(c);
+}
 
-        // Education related
-        education: {
-          patterns: ["education", "college", "university", "degree", "graduate", "student", "study"],
-          responses: [
-            "Debashis is a 2025 graduate with a B.Tech in Information Technology from Asansol Engineering College. He's passionate about building practical, real-world solutions! 🎓",
-            "He completed his B.Tech in IT from Asansol Engineering College in 2025, where he developed a strong foundation in software engineering and problem-solving. 📚"
-          ]
-        },
+// ── Stars / Particles ──
+const N = 3200;
+const pPos = new Float32Array(N * 3);
+for (let i = 0; i < N; i++) {
+  pPos[i*3]   = (Math.random() - 0.5) * 50;
+  pPos[i*3+1] = (Math.random() - 0.5) * 50;
+  pPos[i*3+2] = (Math.random() - 0.5) * 50;
+}
+const pGeo = new THREE.BufferGeometry();
+pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+const stars = new THREE.Points(pGeo, new THREE.PointsMaterial({
+  map: glowTex('#00c8ff'), size: 0.13, transparent: true,
+  blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.55
+}));
+scene.add(stars);
 
-        // Experience & work
-        experience: {
-          patterns: ["experience", "job", "work experience", "worked", "internship", "career"],
-          responses: [
-            "Debashis has hands-on experience building full-stack web applications, Chrome extensions with OAuth integration, and interactive visualizers. Check out the Projects section for detailed examples of his work! 💼",
-            "His practical experience includes developing payment-integrated platforms, browser extensions with Google APIs, and educational tools. Each project demonstrates real-world problem-solving skills! 🛠️"
-          ]
-        },
+// ── Accent stars (neon colour) ──
+const N2 = 500;
+const pPos2 = new Float32Array(N2 * 3);
+for (let i = 0; i < N2; i++) {
+  pPos2[i*3]   = (Math.random() - 0.5) * 45;
+  pPos2[i*3+1] = (Math.random() - 0.5) * 45;
+  pPos2[i*3+2] = (Math.random() - 0.5) * 45;
+}
+const pGeo2 = new THREE.BufferGeometry();
+pGeo2.setAttribute('position', new THREE.BufferAttribute(pPos2, 3));
+const stars2 = new THREE.Points(pGeo2, new THREE.PointsMaterial({
+  map: glowTex('#00ffb3'), size: 0.09, transparent: true,
+  blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.4
+}));
+scene.add(stars2);
 
-        // Hiring/Availability
-        hire: {
-          patterns: ["hire", "available", "looking for", "opportunity", "job", "position", "recruit", "freelance"],
-          responses: [
-            "Debashis is open to exciting opportunities! 🎯 For hiring inquiries, you can reach out via WhatsApp (button above) or connect on LinkedIn. He's particularly interested in full-stack development and innovative projects!",
-            "Yes, he's available for interesting roles and collaborations! Feel free to contact him via WhatsApp or LinkedIn to discuss opportunities. He's especially passionate about building impactful solutions! 🚀"
-          ]
-        },
+// ── Helper: wireframe mesh from geometry ──
+function wireMesh(geo, color, opacity) {
+  const wgeo = new THREE.WireframeGeometry(geo);
+  const mat  = new THREE.LineBasicMaterial({ color, transparent: true, opacity, blending: THREE.AdditiveBlending });
+  return new THREE.LineSegments(wgeo, mat);
+}
 
-        // Specific tech questions
-        java: {
-          patterns: ["java", "backend"],
-          responses: [
-            "Yes! Debashis is skilled in Java and uses it for backend development. He's comfortable with object-oriented programming and building robust server-side applications. ☕",
-          ]
-        },
+// ── Hero centrepiece: TorusKnot ──
+const tkMain = wireMesh(new THREE.TorusKnotGeometry(1.7, 0.46, 130, 18, 2, 3), 0x00c8ff, 0.18);
+tkMain.position.set(3.8, 0.3, -2);
+scene.add(tkMain);
 
-        javascript: {
-          patterns: ["javascript", "js", "frontend", "react", "node"],
-          responses: [
-            "Absolutely! JavaScript is one of Debashis's core skills. He uses it for both frontend development and Chrome extension development, including working with APIs and async programming. 💻",
-          ]
-        },
+// Halo around it
+const halo = wireMesh(new THREE.IcosahedronGeometry(2.6, 1), 0x0055ee, 0.06);
+halo.position.copy(tkMain.position);
+scene.add(halo);
 
-        chrome: {
-          patterns: ["chrome extension", "browser extension", "plugin"],
-          responses: [
-            "Debashis has built TaskMate, a Chrome extension with Google OAuth 2.0 integration and Calendar sync! He's experienced with Chrome APIs and browser extension architecture. 🔌",
-          ]
-        },
+// ── Floating shapes ──
+const floaters = [];
+const shapeDefs = [
+  { geo: new THREE.OctahedronGeometry(0.55),           p: [-4.5, 2.2, -3.5],  c: 0x00ffb3, op: 0.28, s: [.009,.013,.006] },
+  { geo: new THREE.TorusGeometry(0.5, 0.13, 8, 22),    p: [5.5, -2.4, -5],    c: 0x00c8ff, op: 0.2,  s: [.006,.005,.011] },
+  { geo: new THREE.TetrahedronGeometry(0.6),            p: [-5.5, -3.2, -2.5], c: 0x0055ee, op: 0.32, s: [.01,.009,.013] },
+  { geo: new THREE.IcosahedronGeometry(0.45, 0),        p: [1.8, 4, -5.5],     c: 0x00ffb3, op: 0.22, s: [.005,.011,.008] },
+  { geo: new THREE.OctahedronGeometry(0.38),            p: [-2.2, -4.5, -3.5], c: 0x00c8ff, op: 0.24, s: [.013,.007,.01] },
+  { geo: new THREE.TorusGeometry(0.38, 0.1, 8, 18),    p: [6.5, 3.2, -6.5],   c: 0x0055ee, op: 0.19, s: [.008,.012,.007] },
+  { geo: new THREE.TetrahedronGeometry(0.4),            p: [-6, 0.5, -5],      c: 0x00ffb3, op: 0.2,  s: [.007,.01,.009] },
+  { geo: new THREE.IcosahedronGeometry(0.3, 0),         p: [2.5, -5, -4],      c: 0x00c8ff, op: 0.18, s: [.011,.006,.013] },
+];
 
-        database: {
-          patterns: ["database", "sql", "mysql", "data"],
-          responses: [
-            "He works with MySQL and MS SQL for database management, including designing schemas, writing queries, and optimizing database performance for web applications. 🗄️",
-          ]
-        },
+shapeDefs.forEach(d => {
+  const m = wireMesh(d.geo, d.c, d.op);
+  m.position.set(...d.p);
+  m.userData = { spd: d.s, fo: Math.random() * Math.PI * 2 };
+  scene.add(m);
+  floaters.push(m);
+});
 
-        // General conversation
-        greeting: {
-          patterns: ["hi", "hello", "hey", "hola", "namaste"],
-          responses: [
-            "Hello! 👋 I'm here to help you learn more about Debashis. Feel free to ask about his skills, projects, or how to get in touch!",
-            "Hey there! 😊 What would you like to know about Debashis? I can tell you about his skills, projects, or contact information!",
-          ]
-        },
+// ── Mouse & scroll state ──
+let mx = 0, my = 0, camTX = 0, camTY = 0, scrollPct = 0;
 
-        thanks: {
-          patterns: ["thank", "thanks", "thank you", "appreciate"],
-          responses: [
-            "You're welcome! 😊 If you have any other questions about Debashis, feel free to ask!",
-            "Happy to help! Feel free to reach out if you need anything else! 🙌",
-          ]
-        },
+document.addEventListener('mousemove', e => {
+  mx = (e.clientX / innerWidth  - 0.5) * 2;
+  my = (e.clientY / innerHeight - 0.5) * 2;
+});
+window.addEventListener('scroll', () => {
+  scrollPct = window.scrollY / (document.body.scrollHeight - innerHeight);
+});
 
-        advantage: {
-          patterns: ["advantage", "benefit", "why", "strength", "strong"],
-          responses: [
-            "Debashis brings several advantages:\n\n✅ Full-stack development skills\n✅ Hands-on experience with real projects\n✅ Payment integration expertise\n✅ Chrome extension development\n✅ Clean, maintainable code\n✅ Problem-solving mindset\n\nHe focuses on building practical, user-friendly solutions! 💪",
-          ]
-        }
-      };
+// ── Animate ──
+let t = 0;
+(function loop() {
+  requestAnimationFrame(loop);
+  t += 0.005;
 
-      // Smart response function
-      function getSmartResponse(userInput) {
-        const input = userInput.toLowerCase().trim();
-        
-        // Check each category
-        for (const [category, data] of Object.entries(qaDatabase)) {
-          for (const pattern of data.patterns) {
-            if (input.includes(pattern)) {
-              // Return random response from available options
-              const responses = data.responses;
-              return responses[Math.floor(Math.random() * responses.length)];
-            }
-          }
-        }
+  tkMain.rotation.x += 0.003;
+  tkMain.rotation.y += 0.005;
+  tkMain.rotation.z += 0.002;
 
-        // Default responses for unknown queries
-        const defaultResponses = [
-          "That's an interesting question! 🤔 While I don't have specific information about that, you can explore the portfolio sections or reach out to Debashis directly. Try asking about his skills, projects, or contact info!",
-          "I'm not sure about that specifically, but I'd be happy to tell you about Debashis's skills, projects, or how to contact him. What would you like to know? 😊",
-          "Hmm, I don't have details on that, but feel free to ask me about:\n• Technical skills\n• Projects & work\n• Contact information\n• Education & experience\n\nWhat interests you? 💡",
-        ];
+  halo.rotation.x -= 0.002;
+  halo.rotation.y += 0.003;
 
-        return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
-      }
+  floaters.forEach(f => {
+    f.rotation.x += f.userData.spd[0];
+    f.rotation.y += f.userData.spd[1];
+    f.rotation.z += f.userData.spd[2];
+    f.position.y += Math.sin(t + f.userData.fo) * 0.003;
+  });
 
-      function reply(text) {
-        const msg = document.createElement("div");
-        msg.className = "msg bot";
-        msg.textContent = text;
-        messages.appendChild(msg);
-        messages.scrollTop = messages.scrollHeight;
-      }
+  stars.rotation.y  += 0.00025;
+  stars.rotation.x  += 0.0001;
+  stars2.rotation.y -= 0.00018;
 
-      function sendMessage() {
-        const txt = input.value.trim();
-        if (!txt) return;
+  // Mouse parallax — smooth lerp
+  camTX += (mx * 0.45 - camTX) * 0.04;
+  camTY += (-my * 0.28 - camTY) * 0.04;
+  camera.position.x = camTX;
+  camera.position.y = camTY;
+  camera.lookAt(scene.position);
 
-        const userMsg = document.createElement("div");
-        userMsg.className = "msg user";
-        userMsg.textContent = txt;
-        messages.appendChild(userMsg);
+  // Scroll depth
+  stars.position.y     = -scrollPct * 5;
+  tkMain.position.z    = -2 - scrollPct * 4;
 
-        input.value = "";
-        messages.scrollTop = messages.scrollHeight;
+  renderer.render(scene, camera);
+})();
 
-        // Get smart response
-        const response = getSmartResponse(txt);
+// ══════════════════════════════════════════════════
+//  CUSTOM CURSOR
+// ══════════════════════════════════════════════════
+const cur = document.getElementById('cur');
+const ring = document.getElementById('ring');
+let cx = 0, cy = 0, rx = 0, ry = 0;
 
-        setTimeout(() => reply(response), 400);
-      }
+document.addEventListener('mousemove', e => {
+  cx = e.clientX; cy = e.clientY;
+  cur.style.left = cx + 'px';
+  cur.style.top  = cy + 'px';
+});
 
-      toggle.onclick = () => {
-        windowEl.classList.toggle("open");
-        if (windowEl.classList.contains("open")) {
-          setTimeout(() => input.focus(), 100);
-        }
-      };
+(function ringLoop() {
+  rx += (cx - rx) * 0.11;
+  ry += (cy - ry) * 0.11;
+  ring.style.left = rx + 'px';
+  ring.style.top  = ry + 'px';
+  requestAnimationFrame(ringLoop);
+})();
 
-      close.onclick = () => windowEl.classList.remove("open");
-      
-      send.onclick = sendMessage;
-      
-      input.onkeydown = e => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          sendMessage();
-        }
-      };
+document.querySelectorAll('a,button,[data-tilt]').forEach(el => {
+  el.addEventListener('mouseenter', () => { cur.classList.add('hov'); ring.classList.add('hov'); });
+  el.addEventListener('mouseleave', () => { cur.classList.remove('hov'); ring.classList.remove('hov'); });
+});
 
-      input.onclick = () => input.focus();
-
-      quicks.forEach(btn => btn.onclick = () => {
-        input.value = btn.dataset.question;
-        sendMessage();
-      });
-
+// ══════════════════════════════════════════════════
+//  3D TILT — Project Cards
+// ══════════════════════════════════════════════════
+document.querySelectorAll('[data-tilt]').forEach(card => {
+  let raf;
+  card.addEventListener('mousemove', e => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      const r  = card.getBoundingClientRect();
+      const dx = (e.clientX - r.left  - r.width  / 2) / (r.width  / 2);
+      const dy = (e.clientY - r.top   - r.height / 2) / (r.height / 2);
+      card.style.transition = 'none';
+      card.style.transform  = `perspective(900px) rotateY(${dx * 9}deg) rotateX(${-dy * 6}deg) translateZ(14px)`;
+      card.style.boxShadow  = `${-dx*12}px ${dy*12}px 40px rgba(0,0,0,.4), 0 0 32px rgba(0,200,255,.13)`;
+      card.style.borderColor = 'rgba(0,200,255,.38)';
     });
-  </script>
+  });
+  card.addEventListener('mouseleave', () => {
+    cancelAnimationFrame(raf);
+    card.style.transition  = 'transform .5s ease, box-shadow .5s ease, border-color .3s';
+    card.style.transform   = '';
+    card.style.boxShadow   = '';
+    card.style.borderColor = '';
+  });
+});
 
+// ══════════════════════════════════════════════════
+//  SCROLL REVEAL
+// ══════════════════════════════════════════════════
+new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) setTimeout(() => e.target.classList.add('on'), i * 80);
+  });
+}, { threshold: 0.08 }).observe && document.querySelectorAll('.reveal').forEach(el => {
+  new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) entries[0].target.classList.add('on');
+  }, { threshold: 0.08 }).observe(el);
+});
+
+// ══════════════════════════════════════════════════
+//  NAV ACTIVE LINK
+// ══════════════════════════════════════════════════
+const navAs = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let id = '';
+  document.querySelectorAll('section[id]').forEach(s => {
+    if (window.scrollY >= s.offsetTop - 130) id = s.id;
+  });
+  navAs.forEach(a => { a.style.color = a.getAttribute('href') === '#' + id ? 'var(--accent)' : ''; });
+});
+</script>
 </body>
 </html>
